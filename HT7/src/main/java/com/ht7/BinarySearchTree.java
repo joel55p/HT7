@@ -1,4 +1,14 @@
-/*Como tal el proposito es la implementacion de un arbol binario de busqueda */
+package com.ht7;
+/*
+ * Universidad del Valle de Guatemala
+ * Algoritmos y Estructuras de Datos
+ * Ing. Douglas Barrios
+ * @author: Joel Nerio, Fabián Prado
+ * Creación: 24/03/2025
+ * última modificación: 25/03/2025
+ * File Name: BinarySearchTree.java
+ * Descripción: Implementacion de un arbol binario de busqueda 
+ */
 
 public class BinarySearchTree<E extends Comparable<E>> {
     private BinaryNode<E> root;

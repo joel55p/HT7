@@ -1,11 +1,23 @@
+package com.ht7;
+/*
+ * Universidad del Valle de Guatemala
+ * Algoritmos y Estructuras de Datos
+ * Ing. Douglas Barrios
+ * @author: Joel Nerio, Fabián Prado
+ * Creación: 24/03/2025
+ * última modificación: 25/03/2025
+ * File Name: Producto.java
+ * Descripción: Clase base de cada Producto
+ */
+
 public class Producto implements Comparable<Producto> {  /*clase para establecer los datos necesarios segun la HT que son los siguientes  */
     String SKU;
-    double Price_Retail;  /*Datos */
-    double Price_Current;
+    String Price_Retail;  /*Datos */
+    Double Price_Current;
     String Product_Name;
     String Category;
 
-    public Producto(String SKU, double Price_Retail, double Price_Current, String Product_Name, String Category) { /*Constructor */
+    public Producto(String SKU, String Price_Retail, Double Price_Current, String Product_Name, String Category) { /*Constructor */
         this.SKU = SKU;
         this.Price_Retail = Price_Retail;
         this.Price_Current = Price_Current;
@@ -17,11 +29,11 @@ public class Producto implements Comparable<Producto> {  /*clase para establecer
         return SKU;
     }
 
-    public double getPriceRetail() {
+    public String getPriceRetail() {
         return Price_Retail;
     }
 
-    public double getPriceCurrent() {
+    public Double getPriceCurrent() {
         return Price_Current;
     }
 
@@ -41,5 +53,18 @@ public class Producto implements Comparable<Producto> {  /*clase para establecer
     @Override /*importante ya que asi se mostrara al user */
     public String toString() {
         return "SKU: " + SKU + ", Price Retail: " + Price_Retail + ", Price Current: " + Price_Current + ", Product Name: " + Product_Name + ", Category: " + Category;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Producto otro = (Producto) obj;
+        return this.SKU.equals(otro.SKU);
+    }
+
+    @Override
+    public int hashCode() {
+        return SKU.hashCode();
     }
 }
