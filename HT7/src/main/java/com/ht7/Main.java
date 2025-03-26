@@ -1,4 +1,8 @@
 package com.ht7;
+
+import java.util.Scanner;
+
+
 /*
  * Universidad del Valle de Guatemala
  * Algoritmos y Estructuras de Datos
@@ -10,19 +14,16 @@ package com.ht7;
  * Descripción: Clase Main del proyecto
  */
 
-import java.util.Scanner;
-
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         boolean exit = false;
         ProductReader reader = new ProductReader();
-        reader.loadCSV("info.csv");
+        reader.loadCSV("HT7\\src\\main\\resources\\info.csv");
+
 
         while (!exit) {
-            
-
-            System.out.print("\n1. Buscar un Producto segun su SKU\n2. Salir\nIngrese la opcion que quiera realizar: ");
+            System.out.print("\n1. Buscar un Producto según su SKU\n2. Salir\nIngrese la opción: ");
             String input = scanner.nextLine();
 
             switch (input) {
@@ -30,28 +31,28 @@ public class Main {
                     System.out.print("Ingrese SKU a buscar: ");
                     String sku = scanner.nextLine();
                     Producto found = reader.searchProduct(sku);
-            
+
                     if (found != null) {
-                        System.out.println("\nProducto encontrado: ");
+                        System.out.println("\nProducto con el precio más bajo encontrado:");
                         System.out.println("SKU: " + found.getSku());
                         System.out.println("Price Retail: " + found.getPriceRetail());
-                        System.out.println("Price Current: " + found.getPriceCurrent());
+                        System.out.println("Price Current (más bajo): " + found.getPriceCurrent());
                         System.out.println("Product Name: " + found.getProductName());
                         System.out.println("Category: " + found.getCategory());
                     } else {
                         System.out.println("Producto no encontrado.\n");
                     }
                     break;
-            
+
                 case "2":
                     exit = true;
                     scanner.close();
                     break;
+
                 default:
-                    System.out.println("Opcion invalida");
+                    System.out.println("Opción inválida");
                     break;
             }
-            
         }
     }
 }

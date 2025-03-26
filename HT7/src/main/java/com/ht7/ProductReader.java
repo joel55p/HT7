@@ -3,8 +3,7 @@ package com.ht7;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-
+import java.util.*;
 /*
  * Universidad del Valle de Guatemala
  * Algoritmos y Estructuras de Datos
@@ -16,31 +15,33 @@ import java.io.InputStreamReader;
  * Descripción: Lee el archivo CSV 
  */
 
-class ProductReader {
-    private BinarySearchTree<Producto> bst = new BinarySearchTree<>();
+public class ProductReader {
+    private Map<String, List<Producto>> productsMap = new HashMap<>();
 
     public void loadCSV(String filename) {
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(
-                getClass().getClassLoader().getResourceAsStream(filename)))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
             String line;
-            br.readLine(); 
+            br.readLine(); // Saltar cabecera
+
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
+
+                if (values.length < 19) continue; // Validación básica
+
                 try {
-                    String sku = (values[6]);
-                    String priceRetail = (values[9]);
-                    
-                    // Checkeo si la linea esta formatteada de la manera correcta (especificamente el price)
-                    Double priceCurrent = 0.0; 
-                    if (values.length > 10 && values[10] != null && !values[10].trim().isEmpty()) {
-                        priceCurrent = Double.parseDouble(values[10].trim());
-                    }
+                    String sku = values[6].trim();
+                    String priceRetail = values[9].trim();
+                    Double priceCurrent = values[10].trim().isEmpty() ? Double.MAX_VALUE : Double.parseDouble(values[10].trim());
+                    String productName = values[18].trim();
+                    String category = values[0].trim();
 
-                    String productName = (values[18]);
-                    String category = (values[0]);
+                    Producto newProduct = new Producto(sku, priceRetail, priceCurrent, productName, category);
 
-                    bst.insert(new Producto(sku, priceRetail, priceCurrent, productName, category));
-                } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+                    productsMap.putIfAbsent(sku, new ArrayList<>());
+                    productsMap.get(sku).add(newProduct);
+
+                } catch (NumberFormatException e) {
+                    System.out.println("Error en formato de número en línea: " + line);
                 }
             }
         } catch (IOException e) {
@@ -49,6 +50,13 @@ class ProductReader {
     }
 
     public Producto searchProduct(String sku) {
-        return bst.search(new Producto(sku, "0", 0.0, "", ""));
+        if (!productsMap.containsKey(sku)) {
+            return null;
+        }
+        
+        // Buscar el producto con el menor Price_Current
+        return productsMap.get(sku).stream()
+                .min(Comparator.comparingDouble(Producto::getPriceCurrent))
+                .orElse(null);
     }
 }
