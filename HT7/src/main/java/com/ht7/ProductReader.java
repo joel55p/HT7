@@ -26,15 +26,22 @@ class ProductReader {
             br.readLine(); 
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
+                try {
+                    String sku = (values[6]);
+                    String priceRetail = (values[9]);
+                    
+                    // Checkeo si la linea esta formatteada de la manera correcta (especificamente el price)
+                    Double priceCurrent = 0.0; 
+                    if (values.length > 10 && values[10] != null && !values[10].trim().isEmpty()) {
+                        priceCurrent = Double.parseDouble(values[10].trim());
+                    }
 
-                
-                String sku = (values[6]);
-                String priceRetail = (values[9]);
-                Double priceCurrent = Double.parseDouble(values[10]);
-                String productName = (values[18]);
-                String category = (values[0]);
+                    String productName = (values[18]);
+                    String category = (values[0]);
 
-                bst.insert(new Producto(sku, priceRetail, priceCurrent, productName, category));
+                    bst.insert(new Producto(sku, priceRetail, priceCurrent, productName, category));
+                } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+                }
             }
         } catch (IOException e) {
             System.out.println("Error al leer el archivo: " + e.getMessage());
