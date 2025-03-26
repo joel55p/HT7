@@ -5,6 +5,16 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import com.ht7.ProductReader;
 import com.ht7.Producto;
+/*
+ * Universidad del Valle de Guatemala
+ * Algoritmos y Estructuras de Datos
+ * Ing. Douglas Barrios
+ * @author: Joel Nerio, Fabián Prado
+ * Creación: 24/03/2025
+ * última modificación: 25/03/2025
+ * File Name: HT7Test.java
+ * Descripción: Pruebas unitarias
+ */
 
 public class HT7Test {
     private ProductReader productReader;
@@ -17,7 +27,7 @@ public class HT7Test {
 
     @Test
     public void testSearchSpecificSKU() {
-        // Buscar un SKU especficio y encontrar el producto con su menor valor
+        // Buscar un SKU especficio y encuentra el producto con su menor valor
         Producto foundProduct = productReader.searchProduct("5013299783");
         
         assertEquals("5013299783", foundProduct.getSku(), "5013299783");
@@ -28,7 +38,7 @@ public class HT7Test {
 
     @Test
     public void testInsertAndSearchNewProduct() {
-        // Crear un producto para insertar en el BST
+        // Crea como tal  un producto para insertar en el BST
         Producto newProduct = new Producto(
             "123", 
             "999.00", 
@@ -40,7 +50,7 @@ public class HT7Test {
         BinarySearchTree<Producto> bst = new BinarySearchTree<>();
         bst.insert(newProduct);
         
-        // Buscar el producto usando search
+        // ahora se busca el producto usando search
         Producto foundProduct = bst.search(newProduct);
         
         assertNotNull("Product should be found", foundProduct);

@@ -27,15 +27,15 @@ public class Main {
             String input = scanner.nextLine();
 
             switch (input) {
-                case "1":
+                case "1": /*solo 2 cases */
                     System.out.print("Ingrese SKU a buscar: ");
                     String sku = scanner.nextLine();
                     Producto found = reader.searchProduct(sku);
 
-                    if (found != null) {
+                    if (found != null) { /*compruebas si no esta vacio */
                         System.out.println("\nProducto con el precio más bajo encontrado:");
                         System.out.println("SKU: " + found.getSku());
-                        System.out.println("Price Retail: " + found.getPriceRetail());
+                        System.out.println("Price Retail: " + found.getPriceRetail());  /*como tal datos */
                         System.out.println("Price Current (más bajo): " + found.getPriceCurrent());
                         System.out.println("Product Name: " + found.getProductName());
                         System.out.println("Category: " + found.getCategory());

@@ -26,7 +26,7 @@ public class ProductReader {
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
 
-                if (values.length < 19) continue; // Validación básica
+                if (values.length < 19) continue; /*para validacion  */
 
                 try {
                     String sku = values[6].trim();
